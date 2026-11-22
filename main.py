@@ -31,8 +31,10 @@ def print_report(processor, profiles):
           f'({genre.loc[top_genre, "return_share_%"]:.1f}% возврата);')
     region = processor.calc_retention('first_region')
     big = region[region['users'] >= 100]
-    print(f'  - лучший регион из крупных: {big.index[0]} '
-          f'({big["return_share_%"].max():.1f}%);')
+    best = big.sort_values('return_share_%', ascending=False).iloc[0]
+    print(f'  - лучший регион из крупных: {best.name} '
+          f'({best["return_share_%"]:.1f}%);')
+
 
     print('\n4. Гипотезы:')
     print('  - «спорт возвращает чаще концертов» — не подтвердилась,')
